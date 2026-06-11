@@ -8,8 +8,9 @@ RUN npm run build
 
 # שלב 2: הגשת הקבצים הסטטיים באמצעות Nginx (Production Stage)
 FROM nginx:alpine
-# העתקת קובצי ה-Build שנוצרו בשלב הקודם לתיקיית ברירת המחדל של Nginx
-COPY --from=build-stage /app/build /usr/share/nginx/html
+
+# שינינו מ- /app/build ל- /app/dist בהתאם ל-Vite
+COPY --from=build-stage /app/dist /usr/share/nginx/html
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
